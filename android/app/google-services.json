@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "435481162851",
+    "project_id": "farm-ges",
+    "storage_bucket": "farm-ges.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435481162851:android:8feadedf7aca6006ca7456",
+        "android_client_info": {
+          "package_name": "com.example.farmges"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435481162851-lkdsco97i4u8lr9vppf0np4jkq4b3704.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGdRJMbHrhVfsCZ6eFVcMChXc1UeFZxXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435481162851-lkdsco97i4u8lr9vppf0np4jkq4b3704.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "435481162851-dkp9hvdvkbi6gcl0kd3a36nt1e75qu4e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.farmges"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
