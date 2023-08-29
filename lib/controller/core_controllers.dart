@@ -1,15 +1,15 @@
-import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+
+import '../utils/add_to_callendar.dart';
 
 class CoreController extends GetxController {
   static CoreController instance = Get.find();
   var data = {
     'races': [
       {
-        'nom_de_races': "bleu d'hollandes",
+        'nom_de_race': "bleu d'hollandes",
         'vaccin': [
           {'nom_vaccin': 'eau sucree', 'date_debut': 1, 'nbr_jour': 1},
           {
@@ -50,64 +50,17 @@ class CoreController extends GetxController {
       }
     ]
   };
+  
+  void onAddEnd(int nombre_poulet, String race, DateTime date_debut) {
+    FirebaseFirestore.instance.collection("poulets").add(
+        {'race': race, 'population': nombre_poulet, 'date_debut': date_debut});
+
+    EasyLoading.showSuccess("Ajout reussit");
+  }
 
   addPopulation(int nombre_poulet, String race, DateTime date_debut) async {
     EasyLoading.show();
-
-    if (data["races"]!
-            .where((element) => element['nom_de_races'] == race)
-            .length ==
-        0) {
-      return;
-    } else {
-      var race_data = data["races"]!
-          .where((element) => element['nom_de_races'] == race)
-          .first;
-      for (var element in (race_data['vaccin'] as List)) {
-        element as Map;
-        await Add2Calendar.addEvent2Cal(Event(
-            title: "Achat de vaccin ${element['nom_vaccin']}",
-            startDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(hour: 6), (element['date_debut'] - 2)),
-            endDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(
-                  hour: 6,
-                ),
-                (element['date_debut'] - 1))));
-      }
-      for (var element in (race_data['vitamines'] as List)) {
-        element as Map;
-        var rs = await Add2Calendar.addEvent2Cal(Event(
-            title: "Achat de vitamine ${element['nom_vitamine']}",
-            startDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(hour: 6), (element['date_debut'] - 2)),
-            endDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(
-                  hour: 6,
-                ),
-                (element['date_debut'] - 1))));
-        print(rs);
-      }
-
-      for (var element in (race_data['aliments'] as List)) {
-        element as Map;
-        await Add2Calendar.addEvent2Cal(Event(
-            title: "Achat d'aliment ${element['nom_aliment']}",
-            startDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(hour: 6), (element['date_debut'] - 2)),
-            endDate: DateUtils.addDaysToDate(
-                date_debut.copyWith(
-                  hour: 6,
-                ),
-                (element['date_debut'] - 1))));
-      }
-      FirebaseFirestore.instance.collection("poulets").add({
-        'race': race,
-        'population': nombre_poulet,
-        'date_debut': date_debut
-      });
-    }
-    EasyLoading.showSuccess("Ajout reussit");
+    add_to_callendar(data,race, date_debut, () => onAddEnd(nombre_poulet, race, date_debut));
   }
 
   addDepense() {}
