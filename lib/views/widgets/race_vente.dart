@@ -12,7 +12,7 @@ Widget raceVenteInput(Function getValue) {
     }
   }
 
-  return Container(
+  return Center(
     child: Row(children: [
       RaceSelectField((value) => raceController.text = value),
       NombreInputField(handleChange, 'Nombre')

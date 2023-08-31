@@ -20,14 +20,20 @@ class VenteRace {
 class Vente {
   String description;
   DateTime date;
-  List<VenteRace> sorties;
+  String race;
+  String nombre;
 
-  Vente({required this.date, required this.description, required this.sorties});
+  Vente(
+      {required this.date,
+      required this.description,
+      required this.race,
+      required this.nombre});
   toJson() {
-    var sortiesJson = [];
-    for (final sortie in sorties) {
-      sortiesJson.add(sortie.toJson());
-    }
-    return {"description": description, "date": date, "sorties": sortiesJson};
+    return {
+      "description": description,
+      "date": date,
+      "race": race,
+      "nombre": nombre
+    };
   }
 }

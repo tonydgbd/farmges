@@ -5,30 +5,26 @@ import 'package:farmges/views/widgets/description_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/nombre_field.dart';
 import '../widgets/page_layout.dart';
+import '../widgets/race_select.dart';
 import '../widgets/race_vente.dart';
 import '../widgets/submit_btn.dart';
 
 class AjoutVente extends StatelessWidget {
   TextEditingController descriptionController = TextEditingController();
+
+  TextEditingController raceController = TextEditingController();
+  TextEditingController nombreController = TextEditingController();
   DateTime now = DateTime.now();
   CoreController controller = Get.find();
 
-  getValue(Map<String, dynamic> data) {
-    print(data);
-  }
-
   saveVente() async {
     var description = descriptionController.text;
-    var vr = [
-      {'race': "blue d'hollande", "nombre": 3000},
-      {'race': "blue d'hollande", "nombre": 3000},
-      {'race': "blue d'hollande", "nombre": 3000},
-      {'race': "blue d'hollande", "nombre": 3000},
-      {'race': "blue d'hollande", "nombre": 3000}
-    ];
-    var sorties = VenteRace.multiple(vr);
-    var vente = Vente(date: now, description: description, sorties: sorties);
+    var nombre = nombreController.text;
+    var race = raceController.text;
+    var vente =
+        Vente(date: now, description: description, race: race, nombre: nombre);
     var response = await controller.addVente(vente);
     return response;
   }
@@ -39,12 +35,21 @@ class AjoutVente extends StatelessWidget {
     descriptionController.text = value;
   }
 
+  getRace(String race) {
+    raceController.text = race;
+  }
+
+  getNombre(String nombre) {
+    nombreController.text = nombre;
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          raceVenteInput(getValue),
           DateInputField(getDate),
+          RaceSelectField((value) => getRace(value)),
+          NombreInputField((value) => getNombre(value), 'Nombre'),
           DescriptionInputField(getDescription),
           SubmitButton("Enregister", saveVente)
         ]),
