@@ -39,10 +39,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  TextEditingController raceController = TextEditingController();
-  TextEditingController nbrController = TextEditingController();
-  DateTime selected_date = DateTime.now();
-
   MyHomePage({super.key});
 
   @override
