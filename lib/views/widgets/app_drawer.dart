@@ -1,9 +1,6 @@
 import 'package:farmges/views/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import "package:farmges/views/pages/home.dart";
 import '../../controller/nav_controller.dart';
 
 Widget DrawerMenu() {

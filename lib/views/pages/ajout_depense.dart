@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/description_field.dart';
 import '../widgets/submit_btn.dart';
+import '../widgets/page_layout.dart';
 
 class AjoutDepense extends StatelessWidget {
   String description = '';
@@ -42,14 +43,13 @@ class AjoutDepense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Ajout d'une depense")),
-      body: ListView(children: [
-        DateInputField(getDate),
-        NombreInputField(getMontant, 'Montant'),
-        DescriptionInputField(getDescription),
-        SubmitButton('Enregister', saveDepense),
-      ]),
-    );
+    return PageLayout(
+        ListView(children: [
+          DateInputField(getDate),
+          NombreInputField(getMontant, 'Montant'),
+          DescriptionInputField(getDescription),
+          SubmitButton('Enregister', saveDepense),
+        ]),
+        title:const Text("Ajout d'une depense"));
   }
 }

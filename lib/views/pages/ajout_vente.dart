@@ -5,6 +5,7 @@ import 'package:farmges/views/widgets/description_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/page_layout.dart';
 import '../widgets/race_vente.dart';
 import '../widgets/submit_btn.dart';
 
@@ -37,17 +38,16 @@ class AjoutVente extends StatelessWidget {
   getDescription(String value) {
     descriptionController.text = value;
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Ajout de vente")),
-      body: ListView(children: [
-        raceVenteInput(getValue)
-        DateInputField(getDate),
-        DescriptionInputField(getDescription),
-        SubmitButton("Enregister", saveVente)
-      ]),
-    );
+    return PageLayout(
+        ListView(children: [
+          raceVenteInput(getValue),
+          DateInputField(getDate),
+          DescriptionInputField(getDescription),
+          SubmitButton("Enregister", saveVente)
+        ]),
+        title: const Text("Ajout de vente"));
   }
 }

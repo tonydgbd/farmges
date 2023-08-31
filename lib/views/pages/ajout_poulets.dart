@@ -1,8 +1,10 @@
 import 'package:farmges/controller/core_controllers.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
+import 'package:farmges/views/widgets/race_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/page_layout.dart';
 import '../widgets/submit_btn.dart';
 
 class AjoutPoulet extends StatelessWidget {
@@ -29,20 +31,12 @@ class AjoutPoulet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Ajout de poulets")),
-        body: ListView(children: [
-          DropdownMenu(
-              width: Get.width * 0.5,
-              controller: raceController,
-              label: Text("Choisir la race"),
-              dropdownMenuEntries: [
-                ...(CoreController.instance.data['races'] as List).map((e) =>
-                    DropdownMenuEntry(
-                        value: e['nom_de_race'], label: e['nom_de_race']))
-              ]),
+    return PageLayout(
+        ListView(children: [
+          RaceSelectField((value) => raceController.text = value),
           NombreInputField(getPouletNombre, 'Nombre'),
           SubmitButton('Enregister', saveChickens),
-        ]));
+        ]),
+        title: Text("Ajout de poulets"));
   }
 }

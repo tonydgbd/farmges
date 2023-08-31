@@ -1,4 +1,5 @@
 import 'package:farmges/views/widgets/nombre_field.dart';
+import 'package:farmges/views/widgets/race_select.dart';
 import 'package:flutter/material.dart';
 
 Widget raceVenteInput(Function getValue) {
@@ -11,15 +12,10 @@ Widget raceVenteInput(Function getValue) {
     }
   }
 
-  return Row(children: [
-    TextField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        hintText: 'Entrez la race',
-        labelText: 'Race',
-      ),
-      controller: raceController,
-    ),
-    NombreInputField(handleChange, 'Nombre')
-  ]);
+  return Container(
+    child: Row(children: [
+      RaceSelectField((value) => raceController.text = value),
+      NombreInputField(handleChange, 'Nombre')
+    ]),
+  );
 }

@@ -1,9 +1,8 @@
 import 'package:farmges/views/pages/ajout_depense.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/app_drawer.dart';
+
 import '../widgets/page_layout.dart';
 import '../widgets/stat_card.dart';
 import 'ajout_poulets.dart';
