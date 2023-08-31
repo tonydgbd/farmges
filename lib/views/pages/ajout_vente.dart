@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import '../widgets/nombre_field.dart';
 import '../widgets/page_layout.dart';
 import '../widgets/race_select.dart';
-import '../widgets/race_vente.dart';
 import '../widgets/submit_btn.dart';
 
 class AjoutVente extends StatelessWidget {
@@ -25,8 +24,11 @@ class AjoutVente extends StatelessWidget {
     var race = raceController.text;
     var vente =
         Vente(date: now, description: description, race: race, nombre: nombre);
-    var response = await controller.addVente(vente);
-    return response;
+    await controller.addVente(vente);
+    raceController.clear();
+    nombreController.clear();
+    descriptionController.clear();
+    Get.snackbar('Ajout de vente', 'La vente a ete ajoutee avec succes');
   }
 
   getDate(dynamic value) {}

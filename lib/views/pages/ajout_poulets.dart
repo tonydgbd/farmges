@@ -21,8 +21,10 @@ class AjoutPoulet extends StatelessWidget {
         nombre as int, race as String, selected_date);
     print(response);
 
-    raceController.text = "";
-    nbrController.text = "";
+    raceController.clear();
+    nbrController.clear();
+
+    Get.snackbar('Ajout de poulets', 'Poulets ajoutes avec succes');
   }
 
   getPouletNombre(String nombre) {

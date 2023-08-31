@@ -23,8 +23,10 @@ class AjoutDepense extends StatelessWidget {
     var depense =
         Depense(date: now, montant: montant, description: description);
     var response = await controller.addDepense(depense);
-    montantController.dispose();
-    descriptionController.dispose();
+
+    descriptionController.clear();
+    montantController.clear();
+    Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');
   }
 
   getDescription(String desc) {
@@ -50,6 +52,6 @@ class AjoutDepense extends StatelessWidget {
           DescriptionInputField(getDescription),
           SubmitButton('Enregister', saveDepense),
         ]),
-        title:const Text("Ajout d'une depense"));
+        title: const Text("Ajout d'une depense"));
   }
 }
