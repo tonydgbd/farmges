@@ -1,4 +1,5 @@
 import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/views/pages/home.dart';
 import 'package:farmges/views/widgets/addPopulation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
+import 'controller/nav_controller.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,6 +16,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(CoreController());
+  Get.put(DrawerNavController());
   runApp(const MyApp());
 }
 
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }

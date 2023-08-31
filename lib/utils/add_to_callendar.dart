@@ -26,7 +26,7 @@ add_to_callendar(Map<String, dynamic> data, String race, DateTime date_debut,Fun
     }
     for (var element in (race_data['vitamines'] as List)) {
       element as Map;
-      var rs = await Add2Calendar.addEvent2Cal(Event(
+      await Add2Calendar.addEvent2Cal(Event(
           title: "Achat de vitamine ${element['nom_vitamine']}",
           startDate: DateUtils.addDaysToDate(
               date_debut.copyWith(hour: 6), (element['date_debut'] - 2)),
@@ -35,8 +35,7 @@ add_to_callendar(Map<String, dynamic> data, String race, DateTime date_debut,Fun
                 hour: 6,
               ),
               (element['date_debut'] - 1))));
-      print(rs);
-    }
+     }
 
     for (var element in (race_data['aliments'] as List)) {
       element as Map;

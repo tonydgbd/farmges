@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
+import '../models/depenses.dart';
+import '../models/vente.dart';
 import '../utils/add_to_callendar.dart';
 
 class CoreController extends GetxController {
@@ -50,7 +52,7 @@ class CoreController extends GetxController {
       }
     ]
   };
-  
+
   void onAddEnd(int nombre_poulet, String race, DateTime date_debut) {
     FirebaseFirestore.instance.collection("poulets").add(
         {'race': race, 'population': nombre_poulet, 'date_debut': date_debut});
@@ -59,9 +61,24 @@ class CoreController extends GetxController {
   }
 
   addPopulation(int nombre_poulet, String race, DateTime date_debut) async {
-    EasyLoading.show();
-    add_to_callendar(data,race, date_debut, () => onAddEnd(nombre_poulet, race, date_debut));
+    add_to_callendar(data, race, date_debut,
+        () => onAddEnd(nombre_poulet, race, date_debut));
   }
 
-  addDepense() {}
+  addDepense(Depense data) async {
+    final created = await FirebaseFirestore.instance
+        .collection("depenses")
+        .add(data.toJson());
+    print(created);
+    return created;
+  }
+
+  addVente(Vente data) async {
+    var jsonData = data.toJson();
+    print(jsonData);
+    final created = await FirebaseFirestore.instance
+        .collection("ventes")
+        .add(jsonData);
+    return created;
+  }
 }

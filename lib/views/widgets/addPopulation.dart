@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddPopulation extends StatelessWidget {
+   AddPopulation({super.key});
+ 
   TextEditingController raceController = TextEditingController();
   TextEditingController nbrController = TextEditingController();
   DateTime selected_date = DateTime.now();
 
-  AddPopulation({super.key});
   @override
-  build(BuildContext context) {
-    print("hi");
-    print("$raceController.value $nbrController.value $selected_date.value");
+  Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -25,7 +24,7 @@ class AddPopulation extends StatelessWidget {
                 dropdownMenuEntries: [
                   ...(CoreController.instance.data['races'] as List).map((e) =>
                       DropdownMenuEntry(
-                          value: e['nom_de_races'], label: e['nom_de_races']))
+                          value: e['nom_de_race'], label: e['nom_de_race']))
                 ]),
             TextField(
               controller: nbrController,
