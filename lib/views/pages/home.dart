@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../widgets/page_layout.dart';
 import '../widgets/stat_card.dart';
+import 'ajout_deces.dart';
 import 'ajout_poulets.dart';
 import 'ajout_vente.dart';
 
@@ -12,7 +13,8 @@ class HomePage extends StatelessWidget {
   final List<Map> actions = [
     {'page': AjoutVente(), 'label': 'Ajouter une vente'},
     {'page': AjoutPoulet(), "label": 'Ajouter des poulets'},
-    {"page": AjoutDepense(), "label": "Enregister une depense"}
+    {"page": AjoutDepense(), "label": "Enregister une depense"},
+    {"page": AjoutDeces(), "label": "Enregister un deces"}
   ];
 
   @override

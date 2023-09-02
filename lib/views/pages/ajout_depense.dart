@@ -8,48 +8,34 @@ import '../widgets/description_field.dart';
 import '../widgets/submit_btn.dart';
 import '../widgets/page_layout.dart';
 
-class AjoutDepense extends StatelessWidget {
-  String description = '';
-  String montant = '';
-
-  TextEditingController montantController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+class AjoutDepense extends StatelessWidget
+    with NombreInputMixin, DescriptionInputMixin, DateInputMixin {
   DateTime now = DateTime.now();
   CoreController controller = Get.find();
 
   saveDepense() async {
-    var montant = montantController.text;
-    String description = descriptionController.text;
+    var montant = getNombre();
+    String description = getDescription();
     var depense =
-        Depense(date: now, montant: montant, description: description);
+        Depense(date: getDate(), montant: montant, description: description);
     var response = await controller.addDepense(depense);
-
-    descriptionController.clear();
-    montantController.clear();
+    clear();
     Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');
   }
 
-  getDescription(String desc) {
-    descriptionController.text = desc;
-    description = desc;
+  clear(){
+    clearDate();
+    clearDescription();
+    clearNombre();
+    
   }
-
-  getMontant(String mont) {
-    montantController.text = mont;
-    montant = mont;
-  }
-
-  getDate(dynamic value) {
-    print(value);
-  }
-
   @override
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          DateInputField(getDate),
-          NombreInputField(getMontant, 'Montant'),
-          DescriptionInputField(getDescription),
+          DateInput(context),
+          NombreInput('Montant'),
+          DescriptionInput(),
           SubmitButton('Enregister', saveDepense),
         ]),
         title: const Text("Ajout d'une depense"));

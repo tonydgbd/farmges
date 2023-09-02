@@ -43,7 +43,7 @@ class AddPopulation extends StatelessWidget {
                 child: Text("Ajouter"),
                 onPressed: () {
                   CoreController.instance.addPopulation(
-                      int.parse(nbrController.text),
+                      nbrController.text,
                       raceController.text,
                       selected_date);
                 })

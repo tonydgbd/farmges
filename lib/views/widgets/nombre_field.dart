@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 
-Widget NombreInputField(Function getValue, String label) {
+Widget NombreInputField(TextEditingController controller, String label) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: TextField(
       keyboardType: TextInputType.number,
-      onChanged: (value) => getValue(value),
+      controller: controller,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: label,
       ),
     ),
   );
+}
+
+mixin class NombreInputMixin {
+  TextEditingController nombreController = TextEditingController();
+
+  getNombre() {
+    return nombreController.text;
+  }
+
+  clearNombre() {
+    nombreController.clear();
+  }
+
+  Widget NombreInput(String label) {
+    return NombreInputField(nombreController, label);
+  }
 }
