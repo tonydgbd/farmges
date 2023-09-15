@@ -21,9 +21,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageLayout(
       ListView(
+        
         children: [
           Center(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 StatCard('Ventes Mensuelles', 100000),
                 StatCard('Depenses mensuelles', 50000),
@@ -31,9 +33,9 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Padding(padding: EdgeInsets.only(top: 50)),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Card(child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 for (final action in actions)
                   Padding(
@@ -42,7 +44,7 @@ class HomePage extends StatelessWidget {
                         onPressed: () => Get.to(action['page']),
                         child: Text(action['label'])),
                   ),
-              ]),
+              ])),
         ],
       ),
     );

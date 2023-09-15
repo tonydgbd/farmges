@@ -1,4 +1,4 @@
-import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/views/widgets/description_field.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
 import 'package:farmges/views/widgets/race_select.dart';
@@ -16,7 +16,7 @@ class AjoutDeces extends StatelessWidget
         NombreInputMixin,
         DescriptionInputMixin,
         DateInputMixin {
-  CoreController controller = Get.find();
+  StockController controller = Get.find();
 
   submit() async {
     var race = getRace();
@@ -29,8 +29,9 @@ class AjoutDeces extends StatelessWidget
         race: race,
         populationReference: 'cnjasdklcka',
         description: description);
-
-    await controller.addDeces(data);
+    print(data.toJson());
+    var response = await controller.addDeces(data.toJson());
+    print(response);
     clear();
     Get.snackbar('Enregistrement de deces', 'Deces ajoute aves succes');
   }
@@ -47,8 +48,8 @@ class AjoutDeces extends StatelessWidget
     return PageLayout(
         ListView(
           children: [
-            DateInput(context),
             RaceSelect(),
+            DateInput(),
             NombreInput('Nombre'),
             DescriptionInput(),
             SubmitButton('Enregister', submit)

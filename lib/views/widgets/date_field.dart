@@ -1,49 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-Widget DateInputField(TextEditingController controller, BuildContext context) {
-  DateTime dateSelected = DateTime.now();
- 
-  openCallendar() async {
+class DateInputController extends GetxController{
+  var date = DateTime.now().obs;
+
+  updateValue(DateTime date){
+    print(date);
+    date = date;
+  }
+}
+class DateInputField extends StatelessWidget{
+  Function getDateValue;
+  String label;
+  late DateTime dateSelected = DateTime.now();
+  final DateInputController controller = DateInputController();
+
+  DateInputField({required this.getDateValue,this.label}){
+    if(!this.label){
+      
+    }
+  }
+
+  openCallendar(BuildContext context) async {
     var initialDate = DateTime.now();
     var firstDate = DateTime.now();
     var lastDate = DateTime(2024, 12, 12, 12, 12);
     var date = await showDatePicker(
-        context: context,
+        context: context, 
         initialDate: initialDate,
         firstDate: firstDate,
         lastDate: lastDate);
-    controller.text = date!.toString();
-    print(date);
-    dateSelected = date;
+        controller.updateValue(date!);
+        getDateValue(controller.date);
   }
 
-  return Padding(
+  @override
+  Widget build(BuildContext context){
+    return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Row(
+      child: Column(
         children: [
-          IconButton(
-              onPressed: openCallendar, icon: const Icon(Icons.calendar_today)),
-          Text("choisir une date $dateSelected"),
+          Row(children:[
+            Text("$label"),
+            IconButton(
+              onPressed: ()=>openCallendar(context), icon: const Icon(Icons.calendar_today)),
+
+          ]),
+          Obx(()=>Text("choisir une date $controller.date")),
           
         ],
       )
       //
       );
+  }
 }
 
-mixin class DateInputMixin {
-  TextEditingController dateController = TextEditingController();
 
+mixin class DateInputMixin {
+  DateTime?  date;
   getDate() {
     // return dateController.text;
-    return DateTime.now();
+    return date;
   }
 
   clearDate() {
-    dateController.clear();
+    date=null;
   }
 
-  Widget DateInput(BuildContext context) {
-    return DateInputField(dateController, context);
+  Widget DateInput() {
+    return DateInputField(getDateValue:(DateTime value)=>date=value);
   }
 }

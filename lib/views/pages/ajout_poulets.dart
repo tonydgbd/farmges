@@ -1,4 +1,4 @@
-import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
 import 'package:farmges/views/widgets/race_select.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class AjoutPoulet extends StatelessWidget
         RaceSelectMixin,
         DateInputMixin,
         DescriptionInputMixin {
-  CoreController controller = Get.find();
+  StockController controller = Get.find();
 
   saveChickens() async {
     var race = getRace();

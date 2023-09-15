@@ -1,4 +1,5 @@
 import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/views/pages/home.dart';
 import 'package:farmges/views/widgets/addPopulation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ void main() async {
   );
   Get.put(CoreController());
   Get.put(DrawerNavController());
+  Get.put(StockController());
   runApp(const MyApp());
 }
 

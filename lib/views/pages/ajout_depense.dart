@@ -33,7 +33,7 @@ class AjoutDepense extends StatelessWidget
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          DateInput(context),
+          DateInput(),
           NombreInput('Montant'),
           DescriptionInput(),
           SubmitButton('Enregister', saveDepense),

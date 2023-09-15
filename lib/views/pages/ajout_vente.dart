@@ -41,7 +41,7 @@ class AjoutVente extends StatelessWidget
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          DateInput(context),
+          DateInput(),
           RaceSelect(),
           NombreInput('Nombre'),
           DescriptionInput(),
