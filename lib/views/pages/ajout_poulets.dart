@@ -1,4 +1,5 @@
 import 'package:farmges/controller/stock_controller.dart';
+import 'package:farmges/views/widgets/form_card.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
 import 'package:farmges/views/widgets/race_select.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class AjoutPoulet extends StatelessWidget
   saveChickens() async {
     var race = getRace();
     var nombre = getNombre();
-    
+
     await controller.addPopulation(nombre, race as String, getDate());
     clear();
     Get.snackbar('Ajout de poulets', 'Poulets ajoutes avec succes');
@@ -37,9 +38,11 @@ class AjoutPoulet extends StatelessWidget
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          RaceSelect(),
-          NombreInput('Nombre'),
-          SubmitButton('Enregister', saveChickens),
+          FormCard([
+            RaceSelect(),
+            NombreInput('Nombre'),
+            SubmitButton('Enregister', saveChickens),
+          ])
         ]),
         title: Text("Ajout de poulets"));
   }

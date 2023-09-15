@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-
-import '../models/depenses.dart';
 import '../models/population.dart';
-import '../models/vente.dart';
 import '../utils/add_to_callendar.dart';
 
-class StockController extends GetxController{
+class StockController extends GetxController {
   // controller les entrees de poulets, les deces
   // suivre les populations de poulet
   FirebaseFirestore firebase = FirebaseFirestore.instance;
@@ -63,7 +61,7 @@ class StockController extends GetxController{
     EasyLoading.showSuccess("Ajout reussit");
   }
 
-   addPopulation(String nombre_poulet, String race, DateTime date_debut) async {
+  addPopulation(String nombre_poulet, String race, DateTime date_debut) async {
     add_to_callendar(data, race, date_debut,
         () => onAddEnd(nombre_poulet, race, date_debut));
   }
@@ -73,5 +71,4 @@ class StockController extends GetxController{
     var response = await firebase.collection("deces").add(jsonData);
     return response;
   }
-
 }

@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 
-class DateInputController extends GetxController{
-  var date = DateTime.now().obs;
+class DateInputField extends StatelessWidget {
+  Function? getDateValue;
+  String? label;
+  final TextEditingController dateController;
+  DateInputField({required this.dateController, this.getDateValue, this.label});
 
-  updateValue(DateTime date){
-    print(date);
-    date = date;
-  }
-}
-class DateInputField extends StatelessWidget{
-  Function getDateValue;
-  String label;
-  late DateTime dateSelected = DateTime.now();
-  final DateInputController controller = DateInputController();
-
-  DateInputField({required this.getDateValue,this.label}){
-    if(!this.label){
-      
-    }
+  onChangeDate(DateTime date) {
+    dateController.text = date.toString();
   }
 
   openCallendar(BuildContext context) async {
@@ -26,48 +16,49 @@ class DateInputField extends StatelessWidget{
     var firstDate = DateTime.now();
     var lastDate = DateTime(2024, 12, 12, 12, 12);
     var date = await showDatePicker(
-        context: context, 
+        context: context,
         initialDate: initialDate,
         firstDate: firstDate,
         lastDate: lastDate);
-        controller.updateValue(date!);
-        getDateValue(controller.date);
+    onChangeDate(date!);
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Row(children:[
-            Text("$label"),
-            IconButton(
-              onPressed: ()=>openCallendar(context), icon: const Icon(Icons.calendar_today)),
-
-          ]),
-          Obx(()=>Text("choisir une date $controller.date")),
-          
-        ],
-      )
-      //
-      );
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: dateController,
+        readOnly: true,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          label: Text("$label"),
+          prefixIcon: IconButton(
+              onPressed: () => openCallendar(context),
+              icon: const Icon(Icons.calendar_today)),
+        ),
+      ),
+    );
+    //
   }
 }
 
-
 mixin class DateInputMixin {
-  DateTime?  date;
+  String? dateInputLabel;
+  DateTime? date;
   getDate() {
     // return dateController.text;
-    return date;
+    return dateController.text;
   }
 
   clearDate() {
-    date=null;
+    dateController.clear();
   }
 
+  TextEditingController dateController = TextEditingController();
   Widget DateInput() {
-    return DateInputField(getDateValue:(DateTime value)=>date=value);
+    return DateInputField(
+        dateController: dateController, label: dateInputLabel ?? 'Date');
   }
 }

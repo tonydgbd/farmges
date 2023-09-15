@@ -1,9 +1,11 @@
 import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/views/widgets/description_field.dart';
+import 'package:farmges/views/widgets/form_card.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
 import 'package:farmges/views/widgets/race_select.dart';
 import 'package:farmges/views/widgets/submit_btn.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/population.dart';
@@ -43,16 +45,20 @@ class AjoutDeces extends StatelessWidget
     clearNombre();
   }
 
+  String? dateInputLabel = 'Date de Deces';
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(
           children: [
-            RaceSelect(),
-            DateInput(),
-            NombreInput('Nombre'),
-            DescriptionInput(),
-            SubmitButton('Enregister', submit)
+            FormCard([
+              RaceSelect(),
+              DateInput(),
+              NombreInput('Nombre'),
+              DescriptionInput(),
+              SubmitButton('Enregister', submit)
+            ])
           ],
         ),
         title: const Text("Enregister un deces"));

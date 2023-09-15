@@ -1,6 +1,7 @@
 import 'package:farmges/controller/core_controllers.dart';
 import 'package:farmges/models/depenses.dart';
 import 'package:farmges/views/widgets/date_field.dart';
+import 'package:farmges/views/widgets/form_card.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,20 +24,22 @@ class AjoutDepense extends StatelessWidget
     Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');
   }
 
-  clear(){
+  clear() {
     clearDate();
     clearDescription();
     clearNombre();
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
         ListView(children: [
-          DateInput(),
-          NombreInput('Montant'),
-          DescriptionInput(),
-          SubmitButton('Enregister', saveDepense),
+          FormCard([
+            DateInput(),
+            NombreInput('Montant'),
+            DescriptionInput(),
+            SubmitButton('Enregister', saveDepense),
+          ])
         ]),
         title: const Text("Ajout d'une depense"));
   }
