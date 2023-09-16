@@ -1,4 +1,5 @@
 import 'package:farmges/controller/stock_controller.dart';
+import 'package:farmges/views/widgets/select_field.dart';
 import 'package:farmges/views/widgets/description_field.dart';
 import 'package:farmges/views/widgets/form_card.dart';
 import 'package:farmges/views/widgets/nombre_field.dart';
@@ -17,8 +18,21 @@ class AjoutDeces extends StatelessWidget
         RaceSelectMixin,
         NombreInputMixin,
         DescriptionInputMixin,
-        DateInputMixin {
+        DateInputMixin,
+        SelectFieldMixin {
   StockController controller = Get.find();
+  List<dynamic>? availablePopulations;
+
+  AjoutDeces({super.key}) {
+    controller.getPopulations().then((value) {
+      var op = value.map((e) {
+        var value = e['date_debut'].toString();
+        return {"label": value, "value": value};
+      });
+      selectionOptions = op.toList();
+      availablePopulations = value;
+    });
+  }
 
   submit() async {
     var race = getRace();
@@ -29,11 +43,9 @@ class AjoutDeces extends StatelessWidget
         date: date,
         nombre: nombre,
         race: race,
-        populationReference: 'cnjasdklcka',
+        populationReference: getSelected(),
         description: description);
-    print(data.toJson());
-    var response = await controller.addDeces(data.toJson());
-    print(response);
+    await controller.addDeces(data);
     clear();
     Get.snackbar('Enregistrement de deces', 'Deces ajoute aves succes');
   }
@@ -43,10 +55,11 @@ class AjoutDeces extends StatelessWidget
     clearRace();
     clearDescription();
     clearNombre();
+    clearSelection();
   }
 
   String? dateInputLabel = 'Date de Deces';
-
+  String selectionLabel = "Date d'ajout des poulets";
   @override
   Widget build(BuildContext context) {
     return PageLayout(
@@ -54,6 +67,7 @@ class AjoutDeces extends StatelessWidget
           children: [
             FormCard([
               RaceSelect(),
+              Select(),
               DateInput(),
               NombreInput('Nombre'),
               DescriptionInput(),

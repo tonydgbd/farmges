@@ -46,10 +46,9 @@ class DateInputField extends StatelessWidget {
 
 mixin class DateInputMixin {
   String? dateInputLabel;
-  DateTime? date;
   getDate() {
     // return dateController.text;
-    return dateController.text;
+    return DateTime.parse(dateController.text);
   }
 
   clearDate() {

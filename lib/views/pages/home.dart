@@ -1,7 +1,7 @@
+import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/ajout_depense.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 import '../widgets/page_layout.dart';
 import '../widgets/stat_card.dart';
@@ -17,11 +17,12 @@ class HomePage extends StatelessWidget {
     {"page": AjoutDeces(), "label": "Enregister un deces"}
   ];
 
+  final TransactionsController transactions = TransactionsController();
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
       ListView(
-        
         children: [
           Center(
             child: Row(
@@ -32,11 +33,12 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          Padding(padding: EdgeInsets.only(top: 50)),
-          Card(child:Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+          const Padding(padding: EdgeInsets.only(top: 50)),
+          Card(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
                 for (final action in actions)
                   Padding(
                     padding: EdgeInsets.all(20),

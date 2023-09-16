@@ -17,8 +17,8 @@ Widget NombreInputField(TextEditingController controller, String label) {
 mixin class NombreInputMixin {
   TextEditingController nombreController = TextEditingController();
 
-  getNombre() {
-    return nombreController.text;
+  int getNombre() {
+    return int.parse(nombreController.text);
   }
 
   clearNombre() {

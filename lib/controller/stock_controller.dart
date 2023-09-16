@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -54,21 +56,52 @@ class StockController extends GetxController {
     ]
   };
 
-  void onAddEnd(String nombre_poulet, String race, DateTime date_debut) {
+  void onAddEnd(int nombre_poulet, String race, DateTime date_debut) {
     firebase.collection("poulets").add(
         {'race': race, 'population': nombre_poulet, 'date_debut': date_debut});
 
     EasyLoading.showSuccess("Ajout reussit");
   }
 
-  addPopulation(String nombre_poulet, String race, DateTime date_debut) async {
+  addPopulation(int nombre_poulet, String race, DateTime date_debut) async {
     add_to_callendar(data, race, date_debut,
         () => onAddEnd(nombre_poulet, race, date_debut));
+  }
+
+  Future<List<dynamic>> getPopulations() async {
+    var collection = await firebase.collection('poulets').get();
+    var populations = [];
+    for (var document in collection.docs) {
+      Map<String, dynamic> data = document.data();
+      Timestamp date_debut = document.get('date_debut');
+      data['date_debut'] = date_debut.toDate();
+      populations.add(data);
+    }
+    return populations;
   }
 
   addDeces(Deces data) async {
     var jsonData = data.toJson();
     var response = await firebase.collection("deces").add(jsonData);
+    var doc = await response.get();
+    var popRef = doc.data()?['populationReference'];
+    var r = Timestamp.fromDate(DateTime.parse(popRef));
+    var population = await firebase
+        .collection('poulets')
+        .where("date_debut", isEqualTo: r)
+        .get();
+    for (var pop in population.docs) {
+      print(pop.data());
+      try {
+        await firebase
+            .collection('poulets')
+            .doc(pop.id)
+            .update({"population": pop['population'] - data.nombre});
+        print('successfuly updated');
+      } catch (err) {
+        print("update res : $err");
+      }
+    }
     return response;
   }
 }

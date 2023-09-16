@@ -17,8 +17,8 @@ class AjoutDepense extends StatelessWidget
   saveDepense() async {
     var montant = getNombre();
     String description = getDescription();
-    var depense =
-        Depense(date: getDate(), montant: montant, description: description);
+    var depense = Depense(
+        date: getDate(), montant: montant as String, description: description);
     var response = await controller.addDepense(depense);
     clear();
     Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');

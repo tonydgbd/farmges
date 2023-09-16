@@ -21,7 +21,7 @@ class Vente {
   String description;
   DateTime date;
   String race;
-  String nombre;
+  int nombre;
 
   Vente(
       {required this.date,
