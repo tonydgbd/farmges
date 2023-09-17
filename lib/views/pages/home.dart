@@ -1,5 +1,6 @@
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/ajout_depense.dart';
+import 'package:farmges/views/pages/ajout_race.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +12,10 @@ import 'ajout_vente.dart';
 
 class HomePage extends StatelessWidget {
   final List<Map> actions = [
-    {'page': AjoutVente(), 'label': 'Ajouter une vente'},
-    {'page': AjoutPoulet(), "label": 'Ajouter des poulets'},
-    {"page": AjoutDepense(), "label": "Enregister une depense"},
-    {"page": AjoutDeces(), "label": "Enregister un deces"}
+    {'page': AjoutVente, 'label': 'Ajouter une vente'},
+    {'page': AjoutPoulet, "label": 'Ajouter des poulets'},
+    {"page": AjoutDepense, "label": "Enregister une depense"},
+    {"page": AjoutDeces, "label": "Enregister un deces"}
   ];
 
   final TransactionsController transactions = TransactionsController();
@@ -43,7 +44,29 @@ class HomePage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: ElevatedButton(
-                        onPressed: () => Get.to(action['page']),
+                        onPressed: () {
+                          var page = action['page'];
+                          var pageWidget;
+                          switch (page) {
+                            case AjoutDeces:
+                              pageWidget = AjoutDeces();
+                              Get.to(pageWidget);
+                              break;
+                            case AjoutDepense:
+                              pageWidget = AjoutDepense();
+                              break;
+                            case AjoutPoulet:
+                              pageWidget = AjoutPoulet();
+                              break;
+                            case AjoutVente:
+                              pageWidget = AjoutVente();
+                              break;
+                            case AjoutRace:
+                              pageWidget = AjoutRace();
+                              break;
+                          }
+                          Get.to(pageWidget);
+                        },
                         child: Text(action['label'])),
                   ),
               ])),

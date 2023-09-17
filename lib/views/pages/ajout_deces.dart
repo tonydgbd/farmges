@@ -23,7 +23,9 @@ class AjoutDeces extends StatelessWidget
   StockController controller = Get.find();
   List<dynamic>? availablePopulations;
 
-  AjoutDeces({super.key}) {
+  AjoutDeces({super.key});
+
+  getOptions() async {
     controller.getPopulations().then((value) {
       var op = value.map((e) {
         var value = e['date_debut'].toString();
@@ -31,6 +33,8 @@ class AjoutDeces extends StatelessWidget
       });
       selectionOptions = op.toList();
       availablePopulations = value;
+    }).catchError((err) {
+      print(err);
     });
   }
 
@@ -60,8 +64,10 @@ class AjoutDeces extends StatelessWidget
 
   String? dateInputLabel = 'Date de Deces';
   String selectionLabel = "Date d'ajout des poulets";
+
   @override
   Widget build(BuildContext context) {
+    getOptions();
     return PageLayout(
         ListView(
           children: [
