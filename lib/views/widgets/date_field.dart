@@ -7,7 +7,7 @@ class DateInputField extends StatelessWidget {
   DateInputField({required this.dateController, this.getDateValue, this.label});
 
   onChangeDate(DateTime date) {
-    dateController.text = date.toString();
+    dateController.text = "${date.year}-${date.month}-${date.day}";
   }
 
   openCallendar(BuildContext context) async {
@@ -47,7 +47,8 @@ mixin class DateInputMixin {
   String? dateInputLabel;
   getDate() {
     // return dateController.text;
-    return DateTime.parse(dateController.text);
+    var d = dateController.text.split('-');
+    return DateTime(int.parse(d[0]), int.parse(d[1]), int.parse(d[2]));
   }
 
   clearDate() {

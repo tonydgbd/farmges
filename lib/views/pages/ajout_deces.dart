@@ -40,7 +40,6 @@ class _AjoutDecesWidgetState extends State<AjoutDeces>
       });
       setState(() {
         selectionOptions = op.toList();
-        print(selectionOptions);
       });
     }).catchError((err) {
       print(err);
