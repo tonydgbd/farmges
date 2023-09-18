@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     {"page": AjoutDepense, "label": "Enregister une depense"},
     {"page": AjoutDeces, "label": "Enregister un deces"},
     {"page": AjoutRace, "label": "Ajouter une race"},
-    {"page": StatisquePopulation, "label": "Stats populations"}
+    {"page": StatistiquePopulation, "label": "Stats populations"}
   ];
 
   final TransactionsController transactions = TransactionsController();
@@ -32,8 +32,14 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                StatCard('Ventes Mensuelles', 100000),
-                StatCard('Depenses mensuelles', 50000),
+                StatCard(children: [
+                  const Text('Ventes Mensuelles'),
+                  const Text('100000 FCFA')
+                ]),
+                StatCard(children: [
+                  const Text('Depenses mensuelles'),
+                  const Text('50000 FCFA')
+                ]),
               ],
             ),
           ),
@@ -64,8 +70,8 @@ class HomePage extends StatelessWidget {
                             case AjoutVente:
                               pageWidget = AjoutVente();
                               break;
-                            case StatisquePopulation:
-                              pageWidget = StatisquePopulation();
+                            case StatistiquePopulation:
+                              pageWidget = StatistiquePopulation();
                               break;
                           }
                           Get.to(pageWidget);

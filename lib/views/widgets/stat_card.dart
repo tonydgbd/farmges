@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget StatCard(String title, int amount) {
+Widget StatCard({children}) {
   return LayoutBuilder(builder: (context, constraints) {
     return Container(
       width: constraints.maxWidth > 500 ? Get.width * 0.5 : Get.width * 0.8,
@@ -12,11 +12,7 @@ Widget StatCard(String title, int amount) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(title),
-              const Padding(padding: EdgeInsets.all(10)),
-              Text("$amount FCFA")
-            ],
+            children: children,
           ),
         ),
       ),
