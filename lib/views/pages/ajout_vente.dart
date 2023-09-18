@@ -5,7 +5,7 @@ import 'package:farmges/views/widgets/description_field.dart';
 import 'package:farmges/views/widgets/form_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:farmges/views/widgets/select_field.dart';
 import '../widgets/nombre_field.dart';
 import '../widgets/page_layout.dart';
 import '../widgets/race_select.dart';
@@ -16,7 +16,8 @@ class AjoutVente extends StatelessWidget
         DateInputMixin,
         DescriptionInputMixin,
         NombreInputMixin,
-        RaceSelectMixin {
+        RaceSelectMixin, 
+        SelectFieldMixin{
   DateTime now = DateTime.now();
   CoreController controller = Get.find();
 
@@ -40,16 +41,24 @@ class AjoutVente extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-        ListView(children: [
-          FormCard([
-            DateInput(),
-            RaceSelect(),
-            NombreInput('Nombre'),
-            DescriptionInput(),
-            SubmitButton("Enregister", saveVente)
-          ])
-        ]),
+    return EachPage(
+        Container(
+          height: 600,
+          width: 400,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              FormCard([
+                DateInput(),
+                RaceSelect(),
+                // Select(),
+                NombreInput('Nombre'),
+                NombreInput('Montant'),
+                DescriptionInput('Description'),
+                SubmitButton("Enregister", saveVente)
+              ])
+            ]),
+          ),
+        ),
         title: const Text("Ajout de vente"));
   }
 }

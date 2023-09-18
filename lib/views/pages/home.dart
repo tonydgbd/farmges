@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                           switch (page) {
                             case AjoutDeces:
                               pageWidget = AjoutDeces();
-                              Get.to(pageWidget);
+                              // Get.to(pageWidget);
                               break;
                             case AjoutDepense:
                               pageWidget = AjoutDepense();
@@ -65,7 +65,10 @@ class HomePage extends StatelessWidget {
                               pageWidget = AjoutRace();
                               break;
                           }
-                          Get.to(pageWidget);
+                          // Get.to(pageWidget);
+                          showDialog(context: context, builder: (context) {
+                            return pageWidget;
+                          },);
                         },
                         child: Text(action['label'])),
                   ),

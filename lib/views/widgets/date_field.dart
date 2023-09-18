@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class DateInputField extends StatelessWidget {
   Function? getDateValue;
@@ -8,13 +9,13 @@ class DateInputField extends StatelessWidget {
   DateInputField({required this.dateController, this.getDateValue, this.label});
 
   onChangeDate(DateTime date) {
-    dateController.text = date.toString();
+    dateController.text = DateFormat('yyyy-MM-dd').format(date);
   }
 
   openCallendar(BuildContext context) async {
     var initialDate = DateTime.now();
-    var firstDate = DateTime.now();
-    var lastDate = DateTime(2024, 12, 12, 12, 12);
+    var firstDate = DateTime(2020);
+    var lastDate = DateTime.now();;
     var date = await showDatePicker(
         context: context,
         initialDate: initialDate,
@@ -28,15 +29,16 @@ class DateInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.none,
         controller: dateController,
         readOnly: true,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           label: Text("$label"),
-          prefixIcon: IconButton(
+          hintText: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+          suffixIcon: IconButton(
               onPressed: () => openCallendar(context),
-              icon: const Icon(Icons.calendar_today)),
+              icon: const Icon(Icons.calendar_month,size: 30,)),
         ),
       ),
     );

@@ -10,7 +10,7 @@ Widget PageLayout(Widget child,
     appBar: AppBar(
       title: title,
     ),
-    drawer: DrawerMenu(),
+    // drawer: DrawerMenu(),
     body: child,
     floatingActionButton: FloatingActionButton(
       onPressed: () {
@@ -19,5 +19,12 @@ Widget PageLayout(Widget child,
       tooltip: 'Increment',
       child: const Icon(Icons.add),
     ),
+  );
+}
+Widget EachPage(Widget child,
+    {Widget title = const Text("Gestion de ferme")}){
+    return AlertDialog(
+    title: title,
+    content: Expanded(child: child),
   );
 }

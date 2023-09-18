@@ -8,7 +8,7 @@ Widget RaceSelectField(TextEditingController controller) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: DropdownMenu(
-        width: Get.width * 0.8,
+        width: 200,
         controller: controller,
         label: const Text("Choisir la race"),
         dropdownMenuEntries: [

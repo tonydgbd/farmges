@@ -68,18 +68,24 @@ class AjoutDeces extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     getOptions();
-    return PageLayout(
-        ListView(
-          children: [
-            FormCard([
-              RaceSelect(),
-              Select(),
-              DateInput(),
-              NombreInput('Nombre'),
-              DescriptionInput(),
-              SubmitButton('Enregister', submit)
-            ])
-          ],
+    return EachPage(
+        Container(
+          width: 400,
+          height: 600,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                FormCard([
+                  RaceSelect(),
+                  Select(),
+                  DateInput(),
+                  NombreInput('Nombre'),
+                  DescriptionInput('Cause de décès'),
+                  SubmitButton('Enregister', submit)
+                ])
+              ],
+            ),
+          ),
         ),
         title: const Text("Enregister un deces"));
   }

@@ -32,15 +32,21 @@ class AjoutDepense extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-        ListView(children: [
-          FormCard([
-            DateInput(),
-            NombreInput('Montant'),
-            DescriptionInput(),
-            SubmitButton('Enregister', saveDepense),
-          ])
-        ]),
+    return EachPage(
+        Container(
+          height: 500,
+          width: 400,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              FormCard([
+                DateInput(),
+                NombreInput('Montant'),
+                DescriptionInput('Description'),
+                SubmitButton('Enregister', saveDepense),
+              ])
+            ]),
+          ),
+        ),
         title: const Text("Ajout d'une depense"));
   }
 }

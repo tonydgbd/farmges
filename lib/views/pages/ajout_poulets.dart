@@ -36,14 +36,18 @@ class AjoutPoulet extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-        ListView(children: [
-          FormCard([
-            RaceSelect(),
-            NombreInput('Nombre'),
-            SubmitButton('Enregister', saveChickens),
-          ])
-        ]),
+    return EachPage(
+        Container(
+          height: 400,
+          width: 300,
+          child: Column(children: [
+            FormCard([
+              RaceSelect(),
+              NombreInput('Nombre'),
+              SubmitButton('Enregister', saveChickens),
+            ])
+          ]),
+        ),
         title: Text("Ajout de poulets"));
   }
 }
