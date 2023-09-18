@@ -83,21 +83,21 @@ class StockController extends GetxController {
     var response = await firebase.collection("deces").add(jsonData);
     var doc = await response.get();
     var popRef = doc.data()?['populationReference'];
-    var r = Timestamp.fromDate(DateTime.parse(popRef));
-    var population = await firebase
-        .collection('poulets')
-        .where("date_debut", isEqualTo: r)
-        .get();
-    for (var pop in population.docs) {
-      print(pop.data());
-      try {
-        await firebase
-            .collection('poulets')
-            .doc(pop.id)
-            .update({"population": pop['population'] - data.nombre});
-        print('successfuly updated');
-      } catch (err) {
-        print("update res : $err");
+    if (popRef != "") {
+      var r = Timestamp.fromDate(DateTime.parse(popRef));
+      var population = await firebase
+          .collection('poulets')
+          .where("date_debut", isEqualTo: r)
+          .get();
+      for (var pop in population.docs) {
+        try {
+          await firebase
+              .collection('poulets')
+              .doc(pop.id)
+              .update({"population": pop['population'] - data.nombre});
+        } catch (err) {
+          print("update res : $err");
+        }
       }
     }
     return response;

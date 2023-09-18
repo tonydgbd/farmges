@@ -18,7 +18,6 @@ Widget SelectField(TextEditingController controller,
 
 mixin class SelectFieldMixin {
   TextEditingController selectionController = TextEditingController();
-  List<Map<String, String>>? selectionOptions;
   late String selectionLabel;
   getSelected() {
     return selectionController.text;
@@ -28,8 +27,7 @@ mixin class SelectFieldMixin {
     selectionController.clear();
   }
 
-  Widget Select() {
-    return SelectField(
-        selectionController, selectionOptions ?? [], selectionLabel);
+  Widget Select(List<Map<String, String>> selectionOptions) {
+    return SelectField(selectionController, selectionOptions, selectionLabel);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/ajout_depense.dart';
 import 'package:farmges/views/pages/ajout_race.dart';
+import 'package:farmges/views/pages/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,9 @@ class HomePage extends StatelessWidget {
     {'page': AjoutVente, 'label': 'Ajouter une vente'},
     {'page': AjoutPoulet, "label": 'Ajouter des poulets'},
     {"page": AjoutDepense, "label": "Enregister une depense"},
-    {"page": AjoutDeces, "label": "Enregister un deces"}
+    {"page": AjoutDeces, "label": "Enregister un deces"},
+    {"page": AjoutRace, "label": "Ajouter une race"},
+    {"page": StatisquePopulation, "label": "Stats populations"}
   ];
 
   final TransactionsController transactions = TransactionsController();
@@ -42,7 +45,7 @@ class HomePage extends StatelessWidget {
                   children: [
                 for (final action in actions)
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: ElevatedButton(
                         onPressed: () {
                           var page = action['page'];
@@ -63,6 +66,9 @@ class HomePage extends StatelessWidget {
                               break;
                             case AjoutRace:
                               pageWidget = AjoutRace();
+                              break;
+                            case StatisquePopulation:
+                              pageWidget = StatisquePopulation();
                               break;
                           }
                           Get.to(pageWidget);

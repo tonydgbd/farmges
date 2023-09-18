@@ -20,12 +20,18 @@ class AjoutVente extends StatelessWidget
   DateTime now = DateTime.now();
   CoreController controller = Get.find();
 
+  TextEditingController sommeController = TextEditingController();
   saveVente() async {
     var description = getDescription();
     var nombre = getNombre();
     var race = getRace();
-    var vente =
-        Vente(date: now, description: description, race: race, nombre: nombre);
+    var montant = double.parse(sommeController.text);
+    var vente = Vente(
+        date: now,
+        description: description,
+        race: race,
+        nombre: nombre,
+        montant: montant);
     await controller.addVente(vente);
     clear();
     Get.snackbar('Ajout de vente', 'La vente a ete ajoutee avec succes');
@@ -36,6 +42,7 @@ class AjoutVente extends StatelessWidget
     clearDescription();
     clearDate();
     clearNombre();
+    sommeController.clear();
   }
 
   @override
@@ -45,7 +52,8 @@ class AjoutVente extends StatelessWidget
           FormCard([
             DateInput(),
             RaceSelect(),
-            NombreInput('Nombre'),
+            NombreInput('Nombre de poulets'),
+            NombreInputField(sommeController, "Somme Totale"),
             DescriptionInput(),
             SubmitButton("Enregister", saveVente)
           ])

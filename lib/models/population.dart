@@ -21,16 +21,17 @@ class Deces {
   int nombre;
   String race;
   String populationReference;
-  String description;
+  String cause;
   Deces(
       {required this.date,
       required this.nombre,
       required this.race,
       required this.populationReference,
-      required this.description,
+      required this.cause,
       this.id});
   toJson() {
     return {
+      "cause": cause,
       "date": date,
       "nombre": nombre,
       "race": race,

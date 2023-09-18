@@ -13,7 +13,12 @@ import '../../models/population.dart';
 import '../widgets/date_field.dart';
 import '../widgets/page_layout.dart';
 
-class AjoutDeces extends StatelessWidget
+class AjoutDeces extends StatefulWidget {
+  @override
+  State<AjoutDeces> createState() => _AjoutDecesWidgetState();
+}
+
+class _AjoutDecesWidgetState extends State<AjoutDeces>
     with
         RaceSelectMixin,
         NombreInputMixin,
@@ -22,17 +27,21 @@ class AjoutDeces extends StatelessWidget
         SelectFieldMixin {
   StockController controller = Get.find();
   List<dynamic>? availablePopulations;
+  List<Map<String, String>> selectionOptions = [];
 
-  AjoutDeces({super.key});
-
+  _AjoutDecesWidgetState() {
+    getOptions();
+  }
   getOptions() async {
     controller.getPopulations().then((value) {
       var op = value.map((e) {
         var value = e['date_debut'].toString();
         return {"label": value, "value": value};
       });
-      selectionOptions = op.toList();
-      availablePopulations = value;
+      setState(() {
+        selectionOptions = op.toList();
+        print(selectionOptions);
+      });
     }).catchError((err) {
       print(err);
     });
@@ -48,7 +57,7 @@ class AjoutDeces extends StatelessWidget
         nombre: nombre,
         race: race,
         populationReference: getSelected(),
-        description: description);
+        cause: description);
     await controller.addDeces(data);
     clear();
     Get.snackbar('Enregistrement de deces', 'Deces ajoute aves succes');
@@ -67,16 +76,15 @@ class AjoutDeces extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    getOptions();
     return PageLayout(
         ListView(
           children: [
             FormCard([
               RaceSelect(),
-              Select(),
+              Select(selectionOptions),
               DateInput(),
               NombreInput('Nombre'),
-              DescriptionInput(),
+              DescriptionInput(label: "Cause de deces"),
               SubmitButton('Enregister', submit)
             ])
           ],

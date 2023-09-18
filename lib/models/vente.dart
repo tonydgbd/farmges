@@ -22,18 +22,21 @@ class Vente {
   DateTime date;
   String race;
   int nombre;
+  double montant;
 
   Vente(
       {required this.date,
       required this.description,
       required this.race,
-      required this.nombre});
+      required this.nombre,
+      required this.montant});
   toJson() {
     return {
       "description": description,
       "date": date,
       "race": race,
-      "nombre": nombre
+      "nombre": nombre,
+      "montant": montant
     };
   }
 }
