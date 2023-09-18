@@ -1,3 +1,4 @@
+import 'package:farmges/views/widgets/cancel_button.dart';
 import 'package:farmges/views/widgets/date_field.dart';
 import 'package:farmges/views/widgets/description_field.dart';
 import 'package:farmges/views/widgets/form_card.dart';
@@ -11,6 +12,7 @@ class VaccinForm extends StatelessWidget
 
   clear() {}
 
+  cancel() {}
   @override
   Widget build(BuildContext context) {
     dateInputLabel = "Date de debut";
@@ -18,7 +20,12 @@ class VaccinForm extends StatelessWidget
       DescriptionInput(),
       NombreInput("Nombre de jours"),
       DateInput(),
-      SubmitButton("Ajouter", submit)
+      Row(
+        children: [
+          SubmitButton("Ajouter", submit),
+          cancelButton("Annuler", cancel)
+        ],
+      )
     ]);
   }
 }

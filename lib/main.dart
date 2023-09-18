@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-import 'controller/nav_controller.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -17,7 +16,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(CoreController());
-  Get.put(DrawerNavController());
   Get.put(StockController());
   runApp(const MyApp());
 }

@@ -14,12 +14,14 @@ class AjoutDepense extends StatelessWidget
   DateTime now = DateTime.now();
   CoreController controller = Get.find();
 
+  AjoutDepense({super.key});
+
   saveDepense() async {
     var montant = getNombre();
     String description = getDescription();
     var depense = Depense(
         date: getDate(), montant: montant as String, description: description);
-    var response = await controller.addDepense(depense);
+    await controller.addDepense(depense);
     clear();
     Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');
   }

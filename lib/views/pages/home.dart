@@ -64,9 +64,6 @@ class HomePage extends StatelessWidget {
                             case AjoutVente:
                               pageWidget = AjoutVente();
                               break;
-                            case AjoutRace:
-                              pageWidget = AjoutRace();
-                              break;
                             case StatisquePopulation:
                               pageWidget = StatisquePopulation();
                               break;

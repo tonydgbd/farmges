@@ -27,6 +27,7 @@ class DateInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
+        onTap: () => openCallendar(context),
         keyboardType: TextInputType.number,
         controller: dateController,
         readOnly: true,
