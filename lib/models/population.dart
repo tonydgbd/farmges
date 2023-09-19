@@ -1,3 +1,5 @@
+import 'package:farmges/models/etapes_de_croissances.dart';
+
 class Population {
   String? id;
   DateTime date_debut;
@@ -12,6 +14,19 @@ class Population {
 
   toJson() {
     return {"date_debut": date_debut, "population": population, "race": race};
+  }
+
+  static EtapeCroissance getStep(DateTime startAt) {
+    Duration nombreJours = DateTime.now().difference(startAt);
+    switch (nombreJours.inDays) {
+      case < 21:
+        return EtapeCroissance.demarrage;
+      case > 21 && < 26 + 21:
+        return EtapeCroissance.croissance;
+      case > 26 + 21:
+        return EtapeCroissance.finalisation;
+    }
+    return EtapeCroissance.finalisation;
   }
 }
 

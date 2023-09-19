@@ -1,4 +1,5 @@
 import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/models/vente.dart';
 import 'package:farmges/views/widgets/date_field.dart';
 import 'package:farmges/views/widgets/description_field.dart';
@@ -18,7 +19,7 @@ class AjoutVente extends StatelessWidget
         NombreInputMixin,
         RaceSelectMixin {
   DateTime now = DateTime.now();
-  CoreController controller = Get.find();
+  TransactionsController controller = Get.find();
 
   TextEditingController sommeController = TextEditingController();
   saveVente() async {

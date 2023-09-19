@@ -1,11 +1,12 @@
 import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/stock_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddPopulation extends StatelessWidget {
-   AddPopulation({super.key});
- 
+  AddPopulation({super.key});
+  StockController stockController = StockController();
   TextEditingController raceController = TextEditingController();
   TextEditingController nbrController = TextEditingController();
   DateTime selected_date = DateTime.now();
@@ -42,10 +43,8 @@ class AddPopulation extends StatelessWidget {
             CupertinoButton(
                 child: Text("Ajouter"),
                 onPressed: () {
-                  CoreController.instance.addPopulation(
-                      nbrController.text,
-                      raceController.text,
-                      selected_date);
+                  stockController.addPopulation(int.parse(nbrController.text),
+                      raceController.text, selected_date);
                 })
           ],
         ),

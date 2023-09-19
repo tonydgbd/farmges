@@ -1,9 +1,9 @@
 import 'package:farmges/controller/core_controllers.dart';
 import 'package:farmges/controller/stock_controller.dart';
+import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/home.dart';
 import 'package:farmges/views/widgets/addPopulation.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ void main() async {
   );
   Get.put(CoreController());
   Get.put(StockController());
+  Get.put(TransactionsController());
   runApp(const MyApp());
 }
 

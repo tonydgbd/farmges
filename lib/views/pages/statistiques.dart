@@ -1,4 +1,6 @@
+import 'package:farmges/controller/core_controllers.dart';
 import 'package:farmges/controller/stock_controller.dart';
+import 'package:farmges/models/population.dart';
 import 'package:farmges/views/widgets/page_layout.dart';
 import 'package:farmges/views/widgets/stat_card.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ class StatistiquePopulation extends StatefulWidget {
 
 class _StatisquePopulation extends State<StatistiquePopulation> {
   StockController stock = StockController();
+  CoreController coreController = CoreController();
   dynamic populations = [];
 
   _StatisquePopulation() {
@@ -20,6 +23,10 @@ class _StatisquePopulation extends State<StatistiquePopulation> {
     setState(() {
       populations = data;
     });
+  }
+
+  String format(DateTime date) {
+    return "${date.year}-${date.month}-${date.day}";
   }
 
   @override
@@ -38,14 +45,15 @@ class _StatisquePopulation extends State<StatistiquePopulation> {
       return GridView.count(crossAxisCount: rowCount, children: [
         for (var element in populations)
           StatCard(children: <Widget>[
-            Center(
-                child: ListTile(
-              title: Text(element["race"]),
-            )),
             ListTile(
-              title: Text("Date d'arrivee : ${element["date_debut"]}"),
+              title: Center(child: Text(element["race"])),
             ),
-            const ListTile(title: Text("Etape de croissance : junior")),
+            ListTile(
+              title: Text("Date d'arrivee : ${format(element["date_debut"])}"),
+            ),
+            ListTile(
+                title: Text(
+                    "Etape de croissance : ${Population.getStep(element['date_debut']).etape}")),
             ListTile(
               title: Text("Population actuelle: ${element["population"]}"),
             ),

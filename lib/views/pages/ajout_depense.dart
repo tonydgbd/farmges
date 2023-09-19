@@ -1,4 +1,5 @@
 import 'package:farmges/controller/core_controllers.dart';
+import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/models/depenses.dart';
 import 'package:farmges/views/widgets/date_field.dart';
 import 'package:farmges/views/widgets/form_card.dart';
@@ -12,7 +13,7 @@ import '../widgets/page_layout.dart';
 class AjoutDepense extends StatelessWidget
     with NombreInputMixin, DescriptionInputMixin, DateInputMixin {
   DateTime now = DateTime.now();
-  CoreController controller = Get.find();
+  TransactionsController controller = Get.find();
 
   AjoutDepense({super.key});
 

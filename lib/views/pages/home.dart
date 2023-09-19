@@ -1,6 +1,5 @@
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/ajout_depense.dart';
-import 'package:farmges/views/pages/ajout_race.dart';
 import 'package:farmges/views/pages/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,17 +10,36 @@ import 'ajout_deces.dart';
 import 'ajout_poulets.dart';
 import 'ajout_vente.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<Map> actions = [
     {'page': AjoutVente, 'label': 'Ajouter une vente'},
     {'page': AjoutPoulet, "label": 'Ajouter des poulets'},
     {"page": AjoutDepense, "label": "Enregister une depense"},
     {"page": AjoutDeces, "label": "Enregister un deces"},
-    {"page": AjoutRace, "label": "Ajouter une race"},
     {"page": StatistiquePopulation, "label": "Stats populations"}
   ];
 
   final TransactionsController transactions = TransactionsController();
+  double depenseDuMois = 0;
+  double venteDuMois = 0;
+
+  _HomePageState() {
+    fetchData();
+  }
+
+  fetchData() async {
+    transactions.getDepenseMensuelle().then((value) => setState(() {
+          depenseDuMois = value;
+        }));
+    transactions.getVenteMensuelle().then((value) => setState(() {
+          venteDuMois = value;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +52,11 @@ class HomePage extends StatelessWidget {
               children: [
                 StatCard(children: [
                   const Text('Ventes Mensuelles'),
-                  const Text('100000 FCFA')
+                  Text('${venteDuMois.toString()} FCFA')
                 ]),
                 StatCard(children: [
                   const Text('Depenses mensuelles'),
-                  const Text('50000 FCFA')
+                  Text('${depenseDuMois.toString()} FCFA')
                 ]),
               ],
             ),
