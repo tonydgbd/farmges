@@ -1,3 +1,4 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:farmges/controller/core_controllers.dart';
 import '../models/depenses.dart';
 import '../models/population.dart';
@@ -16,25 +17,33 @@ class TransactionsController extends GetxController {
   }
 
   Future<List<Map<String, dynamic>>> getDepenses({int? month}) async {
-    int _month = month ?? DateTime.now().month;
-    var res = await firebase.collection('depenses').get();
+    var now = DateTime.now();
+    var date = DateTime(now.year, month = month ?? now.month);
+    var res = await firebase
+        .collection('depenses')
+        .where("date", isGreaterThan: date.endOfMonth, isLessThan: date)
+        .get();
     List<Map<String, dynamic>> ret = [];
     for (var d in res.docs) {
       Map<String, dynamic> data = d.data();
       Timestamp dateDebut = d.get('date');
       data['date'] = dateDebut.toDate();
-
       ret.add(data);
     }
     return ret;
   }
 
   Future<List<Map<String, dynamic>>> getVentes({int? month}) async {
-    var res = await firebase.collection('ventes').get();
+    var now = DateTime.now();
+    var date = DateTime(now.year, month = month ?? now.month);
+    var res = await firebase
+        .collection('ventes')
+        .where('date', isGreaterThan: date, isLessThan: date.endOfMonth)
+        .get();
     List<Map<String, dynamic>> ret = [];
-    for (var d in res.docs) {
-      Map<String, dynamic> data = d.data();
-      Timestamp dateDebut = d.get('date');
+    for (var document in res.docs) {
+      Map<String, dynamic> data = document.data();
+      Timestamp dateDebut = document.get('date');
       data['date'] = dateDebut.toDate();
 
       ret.add(data);
@@ -64,12 +73,10 @@ class TransactionsController extends GetxController {
   Future<double> getDepenseMensuelle() async {
     double total = 0;
     var now = DateTime.now();
-    var thisYear = now.year;
-    var thisMonth = now.month;
-    var startAt = DateTime(thisYear, thisMonth, 0);
     var depenses = await firebase
         .collection('depenses')
-        .where("date", isLessThan: now, isGreaterThan: startAt)
+        .where("date",
+            isLessThan: now.endOfMonth, isGreaterThan: now.startOfMonth)
         .get();
     for (var dep in depenses.docs) {
       var data = dep.data();
@@ -80,7 +87,9 @@ class TransactionsController extends GetxController {
           double toAdd = double.parse(montant);
           total += toAdd;
         }
-      } on Error catch (e) {}
+      } on Error catch (e) {
+        print(e);
+      }
     }
     return total;
   }
@@ -88,12 +97,10 @@ class TransactionsController extends GetxController {
   Future<double> getVenteMensuelle() async {
     double total = 0;
     var now = DateTime.now();
-    var thisYear = now.year;
-    var thisMonth = now.month;
-    var startAt = DateTime(thisYear, thisMonth, 0);
     var depenses = await firebase
         .collection('ventes')
-        .where("date", isLessThan: now, isGreaterThan: startAt)
+        .where("date",
+            isLessThan: now.endOfMonth, isGreaterThan: now.startOfMonth)
         .get();
     for (var dep in depenses.docs) {
       var data = dep.data();

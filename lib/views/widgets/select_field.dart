@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget SelectField(TextEditingController controller,
-    List<Map<String, Object>> options, String? label,
+    List<Map<String, dynamic>> options, String? label,
     {void Function(String?)? onSelected, bool largeWidth = true}) {
   return Padding(
     padding: const EdgeInsets.all(20),
@@ -31,7 +31,7 @@ mixin class SelectFieldMixin {
     selectionController.clear();
   }
 
-  Widget Select(List<Map<String, String>> selectionOptions,
+  Widget Select(List<Map<String, dynamic>> selectionOptions,
       {void Function(String?)? onSelected, bool largestWidth = true}) {
     selectionController.text = selectionOptions[0]['value']!;
     return SelectField(selectionController, selectionOptions, selectionLabel,

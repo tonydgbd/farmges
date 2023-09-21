@@ -67,6 +67,8 @@ class StockController extends GetxController {
   }
 
   Future<List<Map<String, dynamic>>> getDeces({int? month}) async {
+    var now = DateTime.now();
+    var date = DateTime(now.year, month = month ?? now.month);
     var res = await firebase.collection('deces').get();
     List<Map<String, dynamic>> ret = [];
     for (var d in res.docs) {

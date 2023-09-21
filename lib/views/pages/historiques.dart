@@ -2,16 +2,18 @@ import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/widgets/page_layout.dart';
 import 'package:farmges/views/widgets/select_field.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Historiques extends StatefulWidget {
+  const Historiques({super.key});
+
   @override
   State<Historiques> createState() => _HistoriqueState();
 }
 
 class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
+  int month = DateTime.now().month;
   final options = [
     {
       "label": 'ventes',
@@ -32,27 +34,35 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
   List<Map<String, dynamic>> deces = [];
   List<Map<String, dynamic>> depenses = [];
 
-  StockController stock = StockController();
-  TransactionsController trans = TransactionsController();
+  StockController stock = Get.find();
+  TransactionsController trans = Get.find();
   late TextEditingController monthController;
 
   getData() async {
-    List<Map<String, dynamic>> dep = await trans.getDepenses();
-    List<Map<String, dynamic>> vent = await trans.getVentes();
-    List<Map<String, dynamic>> dec = await stock.getDeces();
-
-    setState(() {
-      ventes = vent;
-      depenses = dep;
-      deces = dec;
-    });
+    if (selectedOption == 'depenses') {
+      List<Map<String, dynamic>> dep = await trans.getDepenses(month: month);
+      setState(() {
+        depenses = dep;
+      });
+    }
+    if (selectedOption == 'ventes') {
+      List<Map<String, dynamic>> vent = await trans.getVentes(month: month);
+      setState(() {
+        ventes = vent;
+      });
+    }
+    if (selectedOption == 'deces') {
+      List<Map<String, dynamic>> dec = await stock.getDeces(month: month);
+      setState(() {
+        deces = dec;
+      });
+    }
   }
 
   _HistoriqueState() {
     int thisMonth = DateTime.now().month;
     var month = months.firstWhere((element) => element["value"] == thisMonth);
     monthController = TextEditingController(text: month['label']!.toString());
-    getData();
   }
 
   @override
@@ -92,6 +102,7 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
   ];
   @override
   Widget build(BuildContext context) {
+    getData();
     return PageLayout(
         ListView(
           children: [
@@ -99,7 +110,12 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
               children: [
                 fieldSelect(),
                 SelectField(monthController, months, "choisir un mois",
-                    largeWidth: false)
+                    largeWidth: false, onSelected: (value) {
+                  setState(() {
+                    var p = int.parse(value!);
+                    month = p;
+                  });
+                })
               ],
             ),
             getTable(),
@@ -110,39 +126,43 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
   }
 }
 
-Widget decesHistoriqueTable(List<Map<String, dynamic>> data) =>
-    PaginatedDataTable(
-      rowsPerPage: 10,
-      columns: const <DataColumn>[
-        DataColumn(label: Text("date")),
-        DataColumn(label: Text("race")),
-        DataColumn(label: Text("nombre")),
-        DataColumn(label: Text("date d'arrivee")),
-      ],
-      source: _DataSource(field: 'deces', data: data),
-    );
+Widget decesHistoriqueTable(List<Map<String, dynamic>> data) => data.isNotEmpty
+    ? PaginatedDataTable(
+        rowsPerPage: 10,
+        columns: const <DataColumn>[
+          DataColumn(label: Text("date")),
+          DataColumn(label: Text("race")),
+          DataColumn(label: Text("nombre")),
+          DataColumn(label: Text("date d'arrivee")),
+        ],
+        source: _DataSource(field: 'deces', data: data),
+      )
+    : EmptyDataMessage;
 
-Widget ventesHistoriqueTable(List<Map<String, dynamic>> data) =>
-    PaginatedDataTable(
-      rowsPerPage: 10,
-      columns: const <DataColumn>[
-        DataColumn(label: Text("date")),
-        DataColumn(label: Text("race")),
-        DataColumn(label: Text("nombre")),
-        DataColumn(label: Text("montant")),
-      ],
-      source: _DataSource(field: 'ventes', data: data),
-    );
+Widget ventesHistoriqueTable(List<Map<String, dynamic>> data) => data.isNotEmpty
+    ? PaginatedDataTable(
+        rowsPerPage: 10,
+        columns: const <DataColumn>[
+          DataColumn(label: Text("date")),
+          DataColumn(label: Text("race")),
+          DataColumn(label: Text("nombre")),
+          DataColumn(label: Text("montant")),
+        ],
+        source: _DataSource(field: 'ventes', data: data),
+      )
+    : EmptyDataMessage;
 
 Widget depensesHistoriqueTable(List<Map<String, dynamic>> data) =>
-    PaginatedDataTable(
-      rowsPerPage: 10,
-      columns: const <DataColumn>[
-        DataColumn(label: Text("date")),
-        DataColumn(label: Text("montant")),
-      ],
-      source: _DataSource(field: 'depenses', data: data),
-    );
+    data.isNotEmpty
+        ? PaginatedDataTable(
+            rowsPerPage: 10,
+            columns: const <DataColumn>[
+              DataColumn(label: Text("date")),
+              DataColumn(label: Text("montant")),
+            ],
+            source: _DataSource(field: 'depenses', data: data),
+          )
+        : EmptyDataMessage;
 
 class _DataSource extends DataTableSource {
   final String field;
@@ -180,3 +200,10 @@ class _DataSource extends DataTableSource {
   @override
   int get selectedRowCount => 0;
 }
+
+Widget EmptyDataMessage = const Center(
+  child: Padding(
+    padding: EdgeInsets.all(20),
+    child: Text("Aucune donne pour ce moiss"),
+  ),
+);

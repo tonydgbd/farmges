@@ -23,20 +23,23 @@ class Vente {
   String race;
   int nombre;
   double montant;
+  List<Map<String, String>>? provenances;
 
   Vente(
       {required this.date,
       required this.description,
       required this.race,
       required this.nombre,
-      required this.montant});
+      required this.montant,
+      this.provenances});
   toJson() {
     return {
       "description": description,
       "date": date,
       "race": race,
       "nombre": nombre,
-      "montant": montant
+      "montant": montant,
+      "provenances": provenances,
     };
   }
 }
