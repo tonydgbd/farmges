@@ -29,13 +29,13 @@ class StockController extends GetxController {
         () => onAddEnd(nombre_poulet, race, date_debut));
   }
 
-  Future<List<dynamic>> getPopulations() async {
+  Future<List<Map<String, dynamic>>> getPopulations() async {
     var collection = await firebase.collection('poulets').get();
-    var populations = [];
+    List<Map<String, dynamic>> populations = [];
     for (var document in collection.docs) {
       Map<String, dynamic> data = document.data();
-      Timestamp date_debut = document.get('date_debut');
-      data['date_debut'] = date_debut.toDate();
+      Timestamp dateDebut = document.get('date_debut');
+      data['date_debut'] = dateDebut.toDate();
       populations.add(data);
     }
     return populations;
@@ -64,5 +64,18 @@ class StockController extends GetxController {
       }
     }
     return response;
+  }
+
+  Future<List<Map<String, dynamic>>> getDeces({int? month}) async {
+    var res = await firebase.collection('deces').get();
+    List<Map<String, dynamic>> ret = [];
+    for (var d in res.docs) {
+      Map<String, dynamic> data = d.data();
+      Timestamp dateDebut = d.get('date');
+      data['date'] = dateDebut.toDate();
+
+      ret.add(data);
+    }
+    return ret;
   }
 }

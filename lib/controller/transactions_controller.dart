@@ -14,6 +14,35 @@ class TransactionsController extends GetxController {
   TransactionsController() {
     data = coreController.data;
   }
+
+  Future<List<Map<String, dynamic>>> getDepenses({int? month}) async {
+    int _month = month ?? DateTime.now().month;
+    var res = await firebase.collection('depenses').get();
+    List<Map<String, dynamic>> ret = [];
+    for (var d in res.docs) {
+      Map<String, dynamic> data = d.data();
+      Timestamp dateDebut = d.get('date');
+      data['date'] = dateDebut.toDate();
+
+      ret.add(data);
+    }
+    return ret;
+  }
+
+  Future<List<Map<String, dynamic>>> getVentes({int? month}) async {
+    var res = await firebase.collection('ventes').get();
+    List<Map<String, dynamic>> ret = [];
+    for (var d in res.docs) {
+      Map<String, dynamic> data = d.data();
+      Timestamp dateDebut = d.get('date');
+      data['date'] = dateDebut.toDate();
+
+      ret.add(data);
+    }
+
+    return ret;
+  }
+
   Future<double> getDepenseTotal() async {
     double total = 0;
     var depenses = await firebase.collection('depenses').get();

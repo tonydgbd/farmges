@@ -1,5 +1,6 @@
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/views/pages/ajout_depense.dart';
+import 'package:farmges/views/pages/historiques.dart';
 import 'package:farmges/views/pages/statistiques.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ import 'ajout_poulets.dart';
 import 'ajout_vente.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
@@ -21,7 +24,8 @@ class _HomePageState extends State<HomePage> {
     {'page': AjoutPoulet, "label": 'Ajouter des poulets'},
     {"page": AjoutDepense, "label": "Enregister une depense"},
     {"page": AjoutDeces, "label": "Enregister un deces"},
-    {"page": StatistiquePopulation, "label": "Stats populations"}
+    {"page": StatistiquePopulation, "label": "Stats populations"},
+    {"page": Historiques, "label": "Historiques"}
   ];
 
   final TransactionsController transactions = TransactionsController();
@@ -90,6 +94,9 @@ class _HomePageState extends State<HomePage> {
                               break;
                             case StatistiquePopulation:
                               pageWidget = StatistiquePopulation();
+                              break;
+                            case Historiques:
+                              pageWidget = Historiques();
                               break;
                           }
                           Get.to(pageWidget);

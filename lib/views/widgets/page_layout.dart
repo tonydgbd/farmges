@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 import 'package:farmges/views/widgets/addPopulation.dart';
 
 Widget PageLayout(Widget child,
-    {Widget title = const Text("Gestion de ferme")}) {
+    {Widget title = const Text("Gestion de ferme"), showAddButton = true}) {
   return Scaffold(
     appBar: AppBar(
       title: title,
     ),
     body: child,
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Get.defaultDialog(content: AddPopulation());
-      },
-      tooltip: 'Increment',
-      child: const Icon(Icons.add),
-    ),
+    floatingActionButton: showAddButton
+        ? FloatingActionButton(
+            onPressed: () {
+              Get.defaultDialog(content: AddPopulation());
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          )
+        : null,
   );
 }
