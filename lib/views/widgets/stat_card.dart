@@ -5,7 +5,7 @@ Widget StatCard({children, Color color = Colors.white}) {
   return LayoutBuilder(builder: (context, constraints) {
     return Container(
       // color: color,
-      width: constraints.maxWidth > 500 ? Get.width * 0.25 : Get.width * 0.5,
+      width: constraints.maxWidth > 500 ? Get.width * 0.5 : Get.width * 0.8,
       height: 200,
       child: Card(
         color: color,
