@@ -1,5 +1,6 @@
 import 'package:farmges/controller/core_controllers.dart';
 import 'package:farmges/controller/stock_controller.dart';
+import 'package:farmges/models/etapes_de_croissances.dart';
 import 'package:farmges/models/population.dart';
 import 'package:farmges/views/widgets/page_layout.dart';
 import 'package:farmges/views/widgets/stat_card.dart';
@@ -44,7 +45,7 @@ class _StatisquePopulation extends State<StatistiquePopulation> {
       }
       return GridView.count(crossAxisCount: rowCount, children: [
         for (var element in populations)
-          StatCard(children: <Widget>[
+          StatCard(color: getCardColor(element), children: <Widget>[
             ListTile(
               title: Center(child: Text(element["race"])),
             ),
@@ -55,10 +56,22 @@ class _StatisquePopulation extends State<StatistiquePopulation> {
                 title: Text(
                     "Etape de croissance : ${Population.getStep(element['date_debut']).etape}")),
             ListTile(
-              title: Text("Population actuelle: ${element["population"]}"),
+              title: Text(
+                  "Population actuelle: ${element["population"] > 0 ? element["population"] : 0}"),
             ),
           ])
       ]);
     })), title: const Text("Statistiques sur les population"));
   }
+}
+
+Color getCardColor(dynamic element) {
+  EtapeCroissance etapeCroissance = Population.getStep(element['date_debut']);
+  if (etapeCroissance.etape == EtapeCroissance.croissance.etape) {
+    return Colors.yellow;
+  }
+  if (etapeCroissance.etape == EtapeCroissance.finalisation.etape) {
+    return Colors.green;
+  }
+  return Colors.red;
 }

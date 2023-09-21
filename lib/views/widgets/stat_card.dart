@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget StatCard({children}) {
+Widget StatCard({children, Color color = Colors.white}) {
   return LayoutBuilder(builder: (context, constraints) {
     return Container(
-      width: constraints.maxWidth > 500 ? Get.width * 0.5 : Get.width * 0.8,
+      // color: color,
+      width: constraints.maxWidth > 500 ? Get.width * 0.25 : Get.width * 0.5,
       height: 200,
       child: Card(
+        color: color,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
