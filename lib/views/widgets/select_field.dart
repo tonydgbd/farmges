@@ -34,7 +34,6 @@ mixin class SelectFieldMixin {
 
   Widget Select(List<Map<String, dynamic>> selectionOptions,
       {void Function(String?)? onSelected, bool largestWidth = true}) {
-    selectionController.text = selectionOptions[0]['value']!;
     return SelectField(selectionController, selectionOptions, selectionLabel,
         onSelected: onSelected, largeWidth: largestWidth);
   }

@@ -121,7 +121,7 @@ class ProvenanceForm extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return FormCard([
-      Select(selectionOptions, largestWidth: false),
+      Select(selectionOptions, largestWidth: false, onSelected: ((p0) {})),
       NombreInput("nombre preleve"),
       SubmitButton('Ajouter', submit)
     ]);

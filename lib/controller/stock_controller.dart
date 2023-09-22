@@ -30,7 +30,10 @@ class StockController extends GetxController {
   }
 
   Future<List<Map<String, dynamic>>> getPopulations() async {
-    var collection = await firebase.collection('poulets').get();
+    var collection = await firebase
+        .collection('poulets')
+        .where("population", isGreaterThan: 0)
+        .get();
     List<Map<String, dynamic>> populations = [];
     for (var document in collection.docs) {
       Map<String, dynamic> data = document.data();

@@ -80,7 +80,7 @@ class _AjoutDecesWidgetState extends State<AjoutDeces>
           children: [
             FormCard([
               RaceSelect(),
-              Select(selectionOptions),
+              Select(selectionOptions, onSelected: (p) {}),
               DateInput(dateInputLabel: "Date deces"),
               NombreInput('Nombre de deces'),
               DescriptionInput(label: "Cause de deces"),
