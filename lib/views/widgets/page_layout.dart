@@ -9,14 +9,5 @@ Widget PageLayout(Widget child,
       title: title,
     ),
     body: child,
-    floatingActionButton: showAddButton
-        ? FloatingActionButton(
-            onPressed: () {
-              Get.defaultDialog(content: AddPopulation());
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          )
-        : null,
   );
 }
