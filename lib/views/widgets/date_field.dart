@@ -48,8 +48,8 @@ mixin class DateInputMixin {
   String? dateInputLabel;
   getDate() {
     // return dateController.text;
-    var d = dateController.text.split('-');
-    return DateTime(int.parse(d[0]), int.parse(d[1]), int.parse(d[2]));
+    // var d = dateController.text.split('-');
+    return DateTime.now();
   }
 
   clearDate() {
