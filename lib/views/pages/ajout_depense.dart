@@ -21,7 +21,7 @@ class AjoutDepense extends StatelessWidget
     var montant = getNombre();
     String description = getDescription();
     var depense = Depense(
-        date: getDate(), montant: montant as String, description: description);
+        date: getDate(), montant: montant.toString(), description: description);
     await controller.addDepense(depense);
     clear();
     Get.snackbar('Ajout de depense', 'Depense ajoute avec succes');
@@ -38,9 +38,9 @@ class AjoutDepense extends StatelessWidget
     return PageLayout(
         ListView(children: [
           FormCard([
-            DateInput(),
-            NombreInput('Montant'),
-            DescriptionInput(),
+            DateInput(dateInputLabel: 'Date depense'),
+            NombreInput('Montant depense'),
+            DescriptionInput(label: "Raison depense"),
             SubmitButton('Enregister', saveDepense),
           ])
         ]),

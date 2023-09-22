@@ -8,6 +8,7 @@ Widget SelectField(TextEditingController controller,
     padding: const EdgeInsets.all(20),
     child: DropdownMenu(
         width: largeWidth ? Get.width * 0.8 : null,
+        requestFocusOnTap: true,
         onSelected: (value) {
           onSelected!(value.toString());
         },

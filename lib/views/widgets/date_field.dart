@@ -45,7 +45,6 @@ class DateInputField extends StatelessWidget {
 }
 
 mixin class DateInputMixin {
-  String? dateInputLabel;
   getDate() {
     // return dateController.text;
     var d = dateController.text.split('-');
@@ -57,7 +56,7 @@ mixin class DateInputMixin {
   }
 
   TextEditingController dateController = TextEditingController();
-  Widget DateInput() {
+  Widget DateInput({String? dateInputLabel}) {
     return DateInputField(
         dateController: dateController, label: dateInputLabel ?? 'Date');
   }

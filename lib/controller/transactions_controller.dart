@@ -21,9 +21,11 @@ class TransactionsController extends GetxController {
     var date = DateTime(now.year, month = month ?? now.month);
     var res = await firebase
         .collection('depenses')
-        .where("date", isGreaterThan: date.endOfMonth, isLessThan: date)
+        .where("date",
+            isGreaterThan: date.startOfMonth, isLessThan: date.endOfMonth)
         .get();
     List<Map<String, dynamic>> ret = [];
+    print(res);
     for (var d in res.docs) {
       Map<String, dynamic> data = d.data();
       Timestamp dateDebut = d.get('date');

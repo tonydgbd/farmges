@@ -15,7 +15,6 @@ class VaccinForm extends StatelessWidget
   cancel() {}
   @override
   Widget build(BuildContext context) {
-    dateInputLabel = "Date de debut";
     return FormCard([
       DescriptionInput(),
       NombreInput("Nombre de jours"),

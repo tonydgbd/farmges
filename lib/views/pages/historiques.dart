@@ -37,6 +37,7 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
   StockController stock = Get.find();
   TransactionsController trans = Get.find();
   late TextEditingController monthController;
+  TextEditingController fieldController = TextEditingController(text: "ventes");
 
   getData() async {
     if (selectedOption == 'depenses') {
@@ -63,17 +64,26 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
     int thisMonth = DateTime.now().month;
     var month = months.firstWhere((element) => element["value"] == thisMonth);
     monthController = TextEditingController(text: month['label']!.toString());
+    getData();
   }
 
-  @override
-  final String selectionLabel = 'historique a voir';
   var data = [];
   Widget fieldSelect() {
-    return Select(options, onSelected: (String? value) {
-      setState(() {
-        selectedOption = value!;
-      });
-    }, largestWidth: false);
+    String selectionLabel = 'historique a voir';
+    return Expanded(
+        child: SelectField(
+      fieldController,
+      options,
+      selectionLabel,
+      largeWidth: false,
+      onSelected: (String? value) {
+        setState(() {
+          selectedOption = value!;
+        });
+
+        getData();
+      },
+    ));
   }
 
   Widget getTable() {
@@ -97,25 +107,33 @@ class _HistoriqueState extends State<Historiques> with SelectFieldMixin {
     {"label": "août", "value": 8},
     {"label": "septembre", "value": 9},
     {"label": "octobre", "value": 10},
-    {"label": "nomvembre", "value": 11},
+    {"label": "novembre", "value": 11},
     {"label": "decembre", "value": 12},
   ];
+
+  Widget monthSelect() {
+    return Expanded(
+        child: SelectField(monthController, months, "choisir un mois",
+            largeWidth: false, onSelected: (value) async {
+      if (value!.isNotEmpty && int.parse(value) != month) {
+        setState(() {
+          var p = int.parse(value);
+          month = p;
+        });
+        await getData();
+      }
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
-    getData();
     return PageLayout(
         ListView(
           children: [
             Row(
               children: [
                 fieldSelect(),
-                SelectField(monthController, months, "choisir un mois",
-                    largeWidth: false, onSelected: (value) {
-                  setState(() {
-                    var p = int.parse(value!);
-                    month = p;
-                  });
-                })
+                monthSelect(),
               ],
             ),
             getTable(),
@@ -130,9 +148,9 @@ Widget decesHistoriqueTable(List<Map<String, dynamic>> data) => data.isNotEmpty
     ? PaginatedDataTable(
         rowsPerPage: 10,
         columns: const <DataColumn>[
-          DataColumn(label: Text("date")),
+          DataColumn(label: Text("date de deces")),
           DataColumn(label: Text("race")),
-          DataColumn(label: Text("nombre")),
+          DataColumn(label: Text("nombre de deces")),
           DataColumn(label: Text("date d'arrivee")),
         ],
         source: _DataSource(field: 'deces', data: data),
@@ -143,10 +161,10 @@ Widget ventesHistoriqueTable(List<Map<String, dynamic>> data) => data.isNotEmpty
     ? PaginatedDataTable(
         rowsPerPage: 10,
         columns: const <DataColumn>[
-          DataColumn(label: Text("date")),
+          DataColumn(label: Text("date de la vente")),
           DataColumn(label: Text("race")),
-          DataColumn(label: Text("nombre")),
-          DataColumn(label: Text("montant")),
+          DataColumn(label: Text("nombre vendu")),
+          DataColumn(label: Text("montant de la vente")),
         ],
         source: _DataSource(field: 'ventes', data: data),
       )
@@ -157,8 +175,8 @@ Widget depensesHistoriqueTable(List<Map<String, dynamic>> data) =>
         ? PaginatedDataTable(
             rowsPerPage: 10,
             columns: const <DataColumn>[
-              DataColumn(label: Text("date")),
-              DataColumn(label: Text("montant")),
+              DataColumn(label: Text("date de depense")),
+              DataColumn(label: Text("montant depense")),
             ],
             source: _DataSource(field: 'depenses', data: data),
           )

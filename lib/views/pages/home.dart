@@ -45,6 +45,22 @@ class _HomePageState extends State<HomePage> {
         }));
   }
 
+  final months = [
+    {"label": "janvier", "value": 1},
+    {"label": "fevrier", "value": 2},
+    {"label": "mars", "value": 3},
+    {"label": "avril", "value": 4},
+    {"label": "mais", "value": 5},
+    {"label": "juin", "value": 6},
+    {"label": "juillet", "value": 7},
+    {"label": "août", "value": 8},
+    {"label": "septembre", "value": 9},
+    {"label": "octobre", "value": 10},
+    {"label": "nomvembre", "value": 11},
+    {"label": "decembre", "value": 12},
+  ];
+
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return PageLayout(
@@ -55,12 +71,26 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 StatCard(children: [
-                  const Text('Ventes Mensuelles'),
-                  Text('${venteDuMois.toString()} FCFA')
+                  // SelectField(controller, months, 'mois', largeWidth: false),
+                  const Text(
+                    'Ventes Mensuelles',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${venteDuMois.toString()} FCFA',
+                    style: const TextStyle(fontSize: 18),
+                  )
                 ]),
                 StatCard(children: [
-                  const Text('Depenses mensuelles'),
-                  Text('${depenseDuMois.toString()} FCFA')
+                  // uSelectField(controller, months, 'mois', largeWidth: false),
+                  const Text(
+                    'Depenses mensuelles',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${depenseDuMois.toString()} FCFA',
+                    style: const TextStyle(fontSize: 18),
+                  )
                 ]),
               ],
             ),

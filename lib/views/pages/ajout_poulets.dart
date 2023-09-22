@@ -40,7 +40,7 @@ class AjoutPoulet extends StatelessWidget
         ListView(children: [
           FormCard([
             RaceSelect(),
-            NombreInput('Nombre'),
+            NombreInput('Nombre poulets'),
             SubmitButton('Enregister', saveChickens),
           ])
         ]),
