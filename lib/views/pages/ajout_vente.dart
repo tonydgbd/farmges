@@ -1,3 +1,4 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:farmges/controller/stock_controller.dart';
 import 'package:farmges/controller/transactions_controller.dart';
 import 'package:farmges/models/vente.dart';
@@ -75,7 +76,7 @@ class _AjoutVenteState extends State<AjoutVente>
                 List<Map<String, String>> options = [];
                 for (var el in s) {
                   DateTime date = el['date_debut'];
-                  var sdate = date.toString();
+                  var sdate = date.format("d MMMM y H:m", "fr_FR");
                   options.add({"label": sdate, "value": sdate});
                 }
                 Get.defaultDialog(
@@ -123,7 +124,18 @@ class ProvenanceForm extends StatelessWidget
     return FormCard([
       Select(selectionOptions, largestWidth: false, onSelected: ((p0) {})),
       NombreInput("nombre preleve"),
-      SubmitButton('Ajouter', submit)
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SubmitButton('Ajouter', submit),
+          ElevatedButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text("Ok"))
+        ],
+      )
     ]);
   }
 }

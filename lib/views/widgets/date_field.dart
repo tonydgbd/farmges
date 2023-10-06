@@ -11,9 +11,11 @@ class DateInputField extends StatelessWidget {
   }
 
   openCallendar(BuildContext context) async {
-    var initialDate = DateTime.now();
-    var firstDate = DateTime.now();
-    var lastDate = DateTime(2024);
+    var now = DateTime.now();
+    var thisYear = now.year;
+    var initialDate = now;
+    var firstDate = DateTime(thisYear);
+    var lastDate = DateTime(thisYear + 1);
     var date = await showDatePicker(
         context: context,
         initialDate: initialDate,

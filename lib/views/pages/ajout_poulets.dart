@@ -39,11 +39,12 @@ class AjoutPoulet extends StatelessWidget
     return PageLayout(
         ListView(children: [
           FormCard([
+            DateInput(dateInputLabel: "date debut"),
             RaceSelect(),
             NombreInput('Nombre poulets'),
             SubmitButton('Enregister', saveChickens),
           ])
         ]),
-        title: Text("Ajout de poulets"));
+        title: const Text("Ajout de poulets"));
   }
 }

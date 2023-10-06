@@ -97,43 +97,51 @@ class _HomePageState extends State<HomePage> {
           ),
           const Padding(padding: EdgeInsets.only(top: 50)),
           Card(
+              color: Color.fromRGBO(247, 243, 243, 1),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                for (final action in actions)
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          var page = action['page'];
-                          var pageWidget;
-                          switch (page) {
-                            case AjoutDeces:
-                              pageWidget = AjoutDeces();
+                    for (final action in actions)
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              var page = action['page'];
+                              var pageWidget;
+                              switch (page) {
+                                case AjoutDeces:
+                                  pageWidget = AjoutDeces();
+                                  Get.to(pageWidget);
+                                  break;
+                                case AjoutDepense:
+                                  pageWidget = AjoutDepense();
+                                  break;
+                                case AjoutPoulet:
+                                  pageWidget = AjoutPoulet();
+                                  break;
+                                case AjoutVente:
+                                  pageWidget = AjoutVente();
+                                  break;
+                                case StatistiquePopulation:
+                                  pageWidget = StatistiquePopulation();
+                                  break;
+                                case Historiques:
+                                  pageWidget = const Historiques();
+                                  break;
+                              }
                               Get.to(pageWidget);
-                              break;
-                            case AjoutDepense:
-                              pageWidget = AjoutDepense();
-                              break;
-                            case AjoutPoulet:
-                              pageWidget = AjoutPoulet();
-                              break;
-                            case AjoutVente:
-                              pageWidget = AjoutVente();
-                              break;
-                            case StatistiquePopulation:
-                              pageWidget = StatistiquePopulation();
-                              break;
-                            case Historiques:
-                              pageWidget = Historiques();
-                              break;
-                          }
-                          Get.to(pageWidget);
-                        },
-                        child: Text(action['label'])),
-                  ),
-              ])),
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                action['label'],
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            )),
+                      ),
+                  ])),
         ],
       ),
     );
