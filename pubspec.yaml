@@ -40,7 +40,9 @@ dependencies:
   flutter_easyloading: ^3.0.5
   calendar_date_picker2: ^0.5.3
   dart_date: ^1.2.2
-  
+  device_calendar:
+    git:
+      url: https://github.com/tonydgbd/device_calendar
 dev_dependencies:
   flutter_test:
     sdk: flutter
