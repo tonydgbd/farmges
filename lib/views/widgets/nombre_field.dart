@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-Widget NombreInputField(TextEditingController controller, String label) {
+Widget NombreInputField(TextEditingController controller, String label,
+    {String defaultNumber = "0", bool editable = true}) {
+  controller.text = defaultNumber;
   return Padding(
     padding: const EdgeInsets.all(20),
     child: TextField(
+      readOnly: !editable,
       keyboardType: TextInputType.number,
       controller: controller,
       decoration: InputDecoration(
@@ -25,7 +28,9 @@ mixin class NombreInputMixin {
     nombreController.clear();
   }
 
-  Widget NombreInput(String label) {
-    return NombreInputField(nombreController, label);
+  Widget NombreInput(String label,
+      {String defaultNumber = "0", bool editable = true}) {
+    return NombreInputField(nombreController, label,
+        defaultNumber: defaultNumber);
   }
 }

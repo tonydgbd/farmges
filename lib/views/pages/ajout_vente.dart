@@ -59,6 +59,31 @@ class _AjoutVenteState extends State<AjoutVente>
   }
 
   List<Map<String, String>> provenances = [];
+
+  addProvenance(Map<String, String> data) {
+    var date = data["date"];
+    bool exist() {
+      var p = provenances.firstWhere((element) => element["data"] == date,
+          orElse: () => {});
+      if (p == {}) {
+        return false;
+      } else {
+        provenances.removeWhere((element) => element['date'] == date);
+      }
+      return false;
+    }
+
+    provenances.addIf(!exist(), data);
+  }
+
+  getTotal() {
+    var t = 0;
+    for (var p in provenances) {
+      t += int.parse(p["nombre"]!);
+    }
+    return t;
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageLayout(
@@ -66,7 +91,17 @@ class _AjoutVenteState extends State<AjoutVente>
           FormCard([
             DateInput(),
             RaceSelect(),
-            NombreInput('Nombre de poulets'),
+            for (var d in provenances)
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    Text("Date d'arrivee ${d['date']}"),
+                    const SizedBox(width: 50),
+                    Text("Nombre preleve ${d["nombre"]}"),
+                  ],
+                ),
+              ),
             ListTile(
               leading: const Icon(Icons.add),
               title: const Text("Ajouter un prelevement"),
@@ -84,11 +119,13 @@ class _AjoutVenteState extends State<AjoutVente>
                     content:
                         ProvenanceForm(options, (Map<String, String> data) {
                       setState(() {
-                        provenances.add(data);
+                        addProvenance(data);
                       });
                     }));
               },
             ),
+            NombreInput('Nombre de poulets',
+                defaultNumber: getTotal().toString(), editable: false),
             NombreInputField(sommeController, "Somme Totale"),
             DescriptionInput(),
             SubmitButton("Enregister", saveVente)
